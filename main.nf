@@ -1,0 +1,20 @@
+#!/usr/bin/env nextflow
+
+nextflow.enable.dsl=2
+
+include { download_ncov_recombinant } from './modules/ncov-recombinant.nf'
+include { ncov_recombinant } from './modules/ncov-recombinant.nf'
+
+
+workflow {
+
+  ch_ncov_recombinant_version = Channel.of(params.ncov_recombinant_version)
+  ch_run_name = Channel.of(params.run_name)
+  ch_artic_analysis_dir = Channel.fromPath(params.artic_analysis_dir, type: 'dir')
+  ch_metadata = Channel.fromPath(params.metadata, type: 'file')
+
+  download_ncov_recombinant(ch_ncov_recombinant_version)
+
+  // ncov_recombinant()
+
+}

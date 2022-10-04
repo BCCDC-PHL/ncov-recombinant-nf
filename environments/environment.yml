@@ -1,0 +1,8 @@
+name: ncov-recombinant
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - snakemake
+      
