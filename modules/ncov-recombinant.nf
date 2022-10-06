@@ -32,7 +32,9 @@ process concatenate_consensus_seqs {
 
   script:
   """
-  cat ${artic_analysis_dir}/${params.consensus_subdir}/*${params.consensus_file_suffix} > sequences.fasta
+  cat ${artic_analysis_dir}/${params.consensus_subdir}/*${params.consensus_file_suffix} > sequences.fasta 
+  
+  #TN - I had to change ${run_id}_sequences.fasta to sequences.fasta because of input requirements
   """
 }
 

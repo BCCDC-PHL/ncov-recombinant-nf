@@ -1,0 +1,69 @@
+Oct.-06 15:12:40.097 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf -profile conda --cache /home/tara.newman/.conda/envs --artic_analysis_dir test_input/analysis_by_run/220303_VH00502_53_AAAVYGTM5/ncov2019-artic-nf-v1.3-output --run_name 220303_VH00502_53_AAAVYGTM5 --metadata test_input/analysis_by_run/220303_VH00502_53_AAAVYGTM5/metadata.tsv --outdir test_output
+Oct.-06 15:12:40.924 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
+Oct.-06 15:12:40.957 [main] DEBUG nextflow.config.ConfigBuilder - Found config home: /home/tara.newman/.nextflow/config
+Oct.-06 15:12:40.972 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/nextflow.config
+Oct.-06 15:12:40.973 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/tara.newman/.nextflow/config
+Oct.-06 15:12:40.973 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/nextflow.config
+Oct.-06 15:12:41.012 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `conda`
+Oct.-06 15:12:41.656 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `conda`
+Oct.-06 15:12:41.833 [main] DEBUG nextflow.config.ConfigBuilder - Available config profiles: [conda]
+Oct.-06 15:12:41.888 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Oct.-06 15:12:41.932 [main] INFO  nextflow.cli.CmdRun - Launching `main.nf` [hungry_agnesi] DSL2 - revision: 35cb73a0d5
+Oct.-06 15:12:41.948 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/home/tara.newman/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Oct.-06 15:12:41.961 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Oct.-06 15:12:42.066 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Oct.-06 15:12:42.081 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Oct.-06 15:12:42.086 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Oct.-06 15:12:42.118 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Oct.-06 15:12:42.179 [main] DEBUG nextflow.Session - Session uuid: 7e1a10a8-3cf8-4b86-9ed7-8bd658b0bf1c
+Oct.-06 15:12:42.179 [main] DEBUG nextflow.Session - Run name: hungry_agnesi
+Oct.-06 15:12:42.179 [main] DEBUG nextflow.Session - Executor pool size: 32
+Oct.-06 15:12:42.211 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.5 build 5708
+  Created: 15-07-2022 16:09 UTC (09:09 PDT)
+  System: Linux 3.10.0-957.5.1.el7.x86_64
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 11.0.1+13-LTS
+  Encoding: UTF-8 (UTF-8)
+  Process: 26584@sabin.bccdc-phl.ca [10.9.235.161]
+  CPUs: 32 - Mem: 125.6 GB (25.3 GB) - Swap: 8 GB (8 GB)
+Oct.-06 15:12:42.412 [main] DEBUG nextflow.Session - Work-dir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work [nfs]
+Oct.-06 15:12:42.474 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Oct.-06 15:12:42.488 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Oct.-06 15:12:42.545 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Oct.-06 15:12:42.557 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 33; maxThreads: 1000
+Oct.-06 15:12:43.349 [main] DEBUG nextflow.Session - Session start invoked
+Oct.-06 15:12:43.691 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Oct.-06 15:12:44.151 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: local
+Oct.-06 15:12:44.152 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Oct.-06 15:12:44.157 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Oct.-06 15:12:44.164 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=32; memory=125.6 GB; capacity=32; pollInterval=100ms; dumpInterval=5m
+Oct.-06 15:12:44.317 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: sge
+Oct.-06 15:12:44.317 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'sge'
+Oct.-06 15:12:44.324 [main] DEBUG nextflow.executor.Executor - [warm up] executor > sge
+Oct.-06 15:12:44.327 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'sge' > capacity: 100; pollInterval: 5s; dumpInterval: 5m 
+Oct.-06 15:12:44.328 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'sge' > queue-stat-interval: 1m
+Oct.-06 15:12:44.340 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: sge
+Oct.-06 15:12:44.341 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'sge'
+Oct.-06 15:12:44.354 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:ncov_recombinant` matches process ncov_recombinant
+Oct.-06 15:12:44.355 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: sge
+Oct.-06 15:12:44.355 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'sge'
+Oct.-06 15:12:44.360 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: download_ncov_recombinant, ncov_recombinant, concatenate_consensus_seqs, create_metadata
+Oct.-06 15:12:44.360 [main] DEBUG nextflow.Session - Ignite dataflow network (8)
+Oct.-06 15:12:44.372 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > download_ncov_recombinant
+Oct.-06 15:12:44.374 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > concatenate_consensus_seqs
+Oct.-06 15:12:44.374 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > create_metadata
+Oct.-06 15:12:44.376 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > ncov_recombinant
+Oct.-06 15:12:44.377 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Oct.-06 15:12:44.380 [main] DEBUG nextflow.Session - Session await
+Oct.-06 15:12:44.595 [Actor Thread 26] DEBUG nextflow.conda.CondaCache - conda found local env for environment=/home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/environments/environment.yml; path=/home/tara.newman/.conda/envs/ncov-recombinant-8e15cc9dd399100d5fdc84d0d0544907
+Oct.-06 15:12:44.957 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Oct.-06 15:12:44.962 [Task submitter] INFO  nextflow.Session - [33/7cea63] Submitted process > download_ncov_recombinant (0.5.0)
+Oct.-06 15:12:45.620 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SGE] submitted process create_metadata (220303_VH00502_53_AAAVYGTM5) > jobId: 8091381; workDir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work/cb/63ebf214414b53a4e4439121f28975
+Oct.-06 15:12:45.620 [Task submitter] INFO  nextflow.Session - [cb/63ebf2] Submitted process > create_metadata (220303_VH00502_53_AAAVYGTM5)
+Oct.-06 15:12:46.274 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SGE] submitted process concatenate_consensus_seqs (220303_VH00502_53_AAAVYGTM5) > jobId: 8091382; workDir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work/3d/946b1e08a1214f92ab2d330673522a
+Oct.-06 15:12:46.275 [Task submitter] INFO  nextflow.Session - [3d/946b1e] Submitted process > concatenate_consensus_seqs (220303_VH00502_53_AAAVYGTM5)
+Oct.-06 15:13:19.437 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 8091381; id: 3; name: create_metadata (220303_VH00502_53_AAAVYGTM5); status: COMPLETED; exit: 0; error: -; workDir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work/cb/63ebf214414b53a4e4439121f28975 started: 1665094399368; exited: 2022-10-06T22:22:00.101487Z; ]
+Oct.-06 15:13:30.711 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: download_ncov_recombinant (0.5.0); status: COMPLETED; exit: 0; error: -; workDir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work/33/7cea630b14f4cf06bbcce7d37285d6]
+Oct.-06 15:14:29.419 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 8091382; id: 1; name: concatenate_consensus_seqs (220303_VH00502_53_AAAVYGTM5); status: COMPLETED; exit: 0; error: -; workDir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work/3d/946b1e08a1214f92ab2d330673522a started: 1665094399600; exited: 2022-10-06T22:23:01.062648Z; ]
+Oct.-06 15:14:30.251 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SGE] submitted process ncov_recombinant (220303_VH00502_53_AAAVYGTM5) > jobId: 8091383; workDir: /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/work/c2/5b9420c0661f8f1e95325b6455d9d1
+Oct.-06 15:14:30.251 [Task submitter] INFO  nextflow.Session - [c2/5b9420] Submitted process > ncov_recombinant (220303_VH00502_53_AAAVYGTM5)
