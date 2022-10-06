@@ -5,7 +5,7 @@ nextflow.enable.dsl=2
 include { download_ncov_recombinant }  from './modules/ncov-recombinant.nf'
 include { ncov_recombinant }           from './modules/ncov-recombinant.nf'
 include { concatenate_consensus_seqs } from './modules/ncov-recombinant.nf'
-
+include { create_metadata } from './modules/ncov-recombinant.nf'
 
 workflow {
 
@@ -18,6 +18,8 @@ workflow {
 
   concatenate_consensus_seqs(ch_run_name.combine(ch_artic_analysis_dir))
 
-  ncov_recombinant(concatenate_consensus_seqs.out.seqs.combine(download_ncov_recombinant.out))
+  create_metadata(ch_run_name.combine(ch_metadata))
 
+  ncov_recombinant(concatenate_consensus_seqs.out.seqs.combine(download_ncov_recombinant.out))
+ 
 }

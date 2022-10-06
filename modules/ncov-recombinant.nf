@@ -28,14 +28,33 @@ process concatenate_consensus_seqs {
   tuple val(run_id), path(artic_analysis_dir)
   
   output:
-  tuple val(run_id), path("${run_id}_sequences.fasta"), emit: seqs
+  tuple val(run_id), path("sequences.fasta"), emit: seqs
 
   script:
   """
-  cat ${artic_analysis_dir}/${params.consensus_subdir}/*${params.consensus_file_suffix} > ${run_id}_sequences.fasta
+  cat ${artic_analysis_dir}/${params.consensus_subdir}/*${params.consensus_file_suffix} > sequences.fasta
   """
 }
 
+process create_metadata {
+
+  tag { run_id }
+
+  input:
+  tuple val(run_id), file(metadata)
+
+  output:
+  tuple val(run_id), path("metadata.tsv")
+
+  script:
+  """
+  cp ${metadata} metadata_original.tsv
+  create_metadata.py
+   
+  """
+
+
+}
 
 process ncov_recombinant {
 
@@ -47,6 +66,8 @@ process ncov_recombinant {
   tuple val(run_id), path(consensus_seqs), path(ncov_recombinant)
   
   output:
+  path("ncov-recombinant/results/${run_id}")
+  
 
   script:
   """
@@ -56,7 +77,14 @@ process ncov_recombinant {
   mv ncov-recombinant-local ncov-recombinant
   mkdir -p ncov-recombinant/data/${run_id}
   cp --dereference ${consensus_seqs} ncov-recombinant/data/${run_id}
-
+  cp /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/test_input/analysis_by_run/220303_VH00502_53_AAAVYGTM5/data/metadata.tsv ncov-recombinant/data/${run_id}
   # run the pipeline...
+  cd ncov-recombinant
+  # create the profile
+  scripts/create_profile.sh --data data/${run_id}
+  
+  # run snakemake
+  pip install click
+  snakemake --profile my_profiles/${run_id}
   """
 }
