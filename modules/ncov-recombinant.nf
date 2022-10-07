@@ -59,7 +59,7 @@ process ncov_recombinant {
 
   tag { run_id }
 
-  publishDir "${params.outdir}", mode: 'copy', pattern: ""
+  publishDir "${params.outdir}", mode: 'copy', pattern: "", saveAs: {filename -> filename.split("/").last()}
 
   input:
   tuple val(run_id), path(consensus_seqs), path(metadata), path(ncov_recombinant)
