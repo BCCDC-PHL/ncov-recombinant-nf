@@ -33,7 +33,6 @@ process concatenate_consensus_seqs {
   script:
   """
   cat ${artic_analysis_dir}/${params.consensus_subdir}/*${params.consensus_file_suffix} > sequences.fasta 
-  
   #TN - I had to change ${run_id}_sequences.fasta to sequences.fasta because of input requirements
   """
 }
@@ -46,13 +45,11 @@ process create_metadata {
   tuple val(run_id), file(metadata)
 
   output:
-  tuple val(run_id), path("metadata.tsv")
+  tuple val(run_id), path("metadata_out.tsv")
 
   script:
   """
-  cp ${metadata} metadata_original.tsv
-  create_metadata.py
-   
+  create_metadata.py --input ${metadata} --output metadata_out.tsv
   """
 
 
@@ -65,7 +62,7 @@ process ncov_recombinant {
   publishDir "${params.outdir}", mode: 'copy', pattern: ""
 
   input:
-  tuple val(run_id), path(consensus_seqs), path(ncov_recombinant)
+  tuple val(run_id), path(consensus_seqs), path(metadata), path(ncov_recombinant)
   
   output:
   path("ncov-recombinant/results/${run_id}")
@@ -75,11 +72,11 @@ process ncov_recombinant {
   """
   # setup
   cp -r --dereference ncov-recombinant ncov-recombinant-local
-  rm ncov-recombinant
+  rm -r ncov-recombinant
   mv ncov-recombinant-local ncov-recombinant
   mkdir -p ncov-recombinant/data/${run_id}
   cp --dereference ${consensus_seqs} ncov-recombinant/data/${run_id}
-  cp /home/tara.newman/recombinant_pipeline_development/ncov-recombinant-nf/test_input/analysis_by_run/220303_VH00502_53_AAAVYGTM5/data/metadata.tsv ncov-recombinant/data/${run_id}
+  cp ${metadata} ncov-recombinant/data/${run_id}/metadata.tsv
   # run the pipeline...
   cd ncov-recombinant
   # create the profile
