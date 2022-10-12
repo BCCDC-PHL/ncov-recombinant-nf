@@ -42,14 +42,14 @@ process create_metadata {
   tag { run_id }
 
   input:
-  tuple val(run_id), file(metadata)
+  tuple val(run_id), file(metadata), path(consensus_seqs)
 
   output:
   tuple val(run_id), path("metadata_out.tsv")
 
   script:
   """
-  create_metadata.py --input ${metadata} --output metadata_out.tsv
+  create_metadata.py --input ${metadata} --output metadata_out.tsv --seqs ${consensus_seqs}
   """
 
 
