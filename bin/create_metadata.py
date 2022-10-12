@@ -46,6 +46,38 @@ def add_date_and_country(df):
 
 
 
+def fix_metadata(sample_ID, df):
+    
+    # create new dataframe using sample IDs from multi fasta as strain
+    df2 = pd.DataFrame(sample_ID, columns = ["strain"])
+
+    # create columns for sample_date and ct values with NA place holders
+    sample_date = ["NA"] * len(df2)
+    ct_value = ["NA"] * len(df2)
+    
+    # add columns to dataframe
+    df2.insert(1, "ct", ct_value)
+    df2.insert(2, "sample_date", sample_date)
+
+
+    # create dictionary from the original metadata.tsv file
+    # using the sample as the key and the date and ct as the values
+    dictionary = df.set_index('strain').T.to_dict('list')
+
+    # for every row in the new dataframe
+    for row in range(0,len(df2)):
+        
+        # if the row in df2 matches a key in the dictionary
+        if df2["strain"][row] in  dictionary:
+            
+            # replace the NA value with the dictionary value
+            df2["ct"][row] = dictionary[df["strain"][row]][0]
+            df2["sample_date"][row] = dictionary[df["strain"][row]][1]
+    
+
+    df2.fillna("NA")
+    return df2
+
 def main(args):
 
     # get the list of sample IDs from multi fasta file
@@ -59,9 +91,9 @@ def main(args):
     df.rename(columns = {"sample": "strain", "date": "sample_date"}, inplace =True)
 
     # if there are differences from the metadata file and the sequence files, use the sample_ID 
-    # in place of the metadata file    
+    # as the strain and fill in sample_date and ct from metadata if available    
     if len(sample_ID) != len(df):
-        df = pd.DataFrame(sample_ID, columns = ["strain"])
+        df = fix_metadata(sample_ID, df)
 
  # add date and country headers required by pipeline
     df = add_date_and_country(df)
