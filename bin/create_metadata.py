@@ -4,16 +4,17 @@
 import argparse
 import pandas as pd
 from datetime import date
+import numpy as np
 
 def read_sequences(args):
 
-    #get the number of lines in the multi fasta file   	
+    # get the number of lines in the multi fasta file   	
     with open(args.seqs, 'r') as f:
         number_of_lines = len(open(args.seqs).readlines())
     
 
 
-# make empty list to add sequence sample ID's
+    # make empty list to add sequence sample ID's
     sample_ID = []
     with open(args.seqs, 'r') as f:
 
@@ -59,11 +60,15 @@ def fix_metadata(sample_ID, df):
     df2.insert(1, "ct", ct_value)
     df2.insert(2, "sample_date", sample_date)
 
-
+    # fill in "nan" values with "NA" string 
+    # (without this the metadata_out.tsv doesn't print NA, just a blank number)
+    df = df.replace(np.nan, "NA", regex=True)
+    
     # create dictionary from the original metadata.tsv file
     # using the sample as the key and the date and ct as the values
     dictionary = df.set_index('strain').T.to_dict('list')
 
+   
     # for every row in the new dataframe
     for row in range(0,len(df2)):
         
@@ -75,7 +80,7 @@ def fix_metadata(sample_ID, df):
             df2["sample_date"][row] = dictionary[df["strain"][row]][1]
     
 
-    df2.fillna("NA")
+    
     return df2
 
 def main(args):
@@ -90,12 +95,12 @@ def main(args):
     # save date as sample data
     df.rename(columns = {"sample": "strain", "date": "sample_date"}, inplace =True)
 
-    # if there are differences from the metadata file and the sequence files, use the sample_ID 
-    # as the strain and fill in sample_date and ct from metadata if available    
+    # if there are differences in the number of samples from the metadata file and the sequence files, 
+    # use the sample_ID as the strain and fill in sample_date and ct from metadata if available    
     if len(sample_ID) != len(df):
         df = fix_metadata(sample_ID, df)
 
- # add date and country headers required by pipeline
+    # add date and country headers required by pipeline
     df = add_date_and_country(df)
 
     # save metadata to use in pipeline
