@@ -30,17 +30,22 @@ def read_sequences(args):
 
 
 
-def add_date_and_country(df):
+def add_date_and_country(df, args):
 
+    
+    # use the run id to get the run date
+    run_date = str(args.run)
+    
+    #put into iso format
+    iso_run_date = "20" + run_date[0:2] + "-" + run_date[2:4] + "-" + run_date[4:6]
+    
     # create date and country headers required by pipeline
-    date_str = date.today().isoformat()
-
-    dates= [date_str] * len(df)
+    dates= [iso_run_date] * len(df)
     
     country = ["Canada"] * len(df)
 
     # if sample date is available, use as the date
-    # otherwise analysis date is used as the date
+    # otherwise the run date  is used as the date
 
     for i in range(0, len(dates)):
         if pd.isna(df["sample_date"][i])  != True:
@@ -108,7 +113,7 @@ def main(args):
         df = fix_metadata(sample_ID, df)
 
     # add date and country headers required by pipeline
-    df = add_date_and_country(df)
+    df = add_date_and_country(df, args)
 
     # save metadata to use in pipeline
     df.to_csv(args.output, sep="\t", index = False)
@@ -119,5 +124,6 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--input', help="Input data")
     parser.add_argument('-o', '--output', help="Output file")
     parser.add_argument('-s', '--seqs', help="Sequences fasta file")
+    parser.add_argument('-r', '--run', help="run id")
     args = parser.parse_args()
     main(args)

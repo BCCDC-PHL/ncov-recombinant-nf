@@ -49,7 +49,7 @@ process create_metadata {
 
   script:
   """
-  create_metadata.py --input ${metadata} --output metadata_out.tsv --seqs ${consensus_seqs}
+  create_metadata.py --input ${metadata} --output metadata_out.tsv --seqs ${consensus_seqs} --run ${run_id}
   """
 
 
@@ -77,6 +77,9 @@ process ncov_recombinant {
   mkdir -p ncov-recombinant/data/${run_id}
   cp --dereference ${consensus_seqs} ncov-recombinant/data/${run_id}
   cp ${metadata} ncov-recombinant/data/${run_id}/metadata.tsv
+  
+  #cp /home/tara.newman/recombinant_pipeline_development/gisaid_strains/gisaid_complete/sequences.fasta ncov-recombinant/data/controls-gisaid
+  #cp /home/tara.newman/recombinant_pipeline_development/gisaid_strains/gisaid_complete/metadata.tsv ncov-recombinant/data/controls-gisaid
   # run the pipeline...
   cd ncov-recombinant
   # create the profile
@@ -85,5 +88,7 @@ process ncov_recombinant {
   # run snakemake
   pip install click
   snakemake --profile my_profiles/${run_id}
+  
+
   """
 }
