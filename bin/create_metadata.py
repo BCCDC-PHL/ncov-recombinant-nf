@@ -36,9 +36,16 @@ def add_date_and_country(df):
     date_str = date.today().isoformat()
 
     dates= [date_str] * len(df)
-
+    
     country = ["Canada"] * len(df)
 
+    # if sample date is available, use as the date
+    # otherwise analysis date is used as the date
+
+    for i in range(0, len(dates)):
+        if pd.isna(df["sample_date"][i])  != True:
+            dates[i] = df["sample_date"][i]
+	
     # add columns to required location (must be "strain date country")
     df.insert(1, "date", dates)
     df.insert(2, "country", country)
