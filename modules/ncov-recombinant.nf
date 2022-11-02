@@ -33,7 +33,7 @@ process concatenate_consensus_seqs {
   script:
   """
   cat ${artic_analysis_dir}/${params.consensus_subdir}/*${params.consensus_file_suffix} > sequences.fasta 
-  #TN - I had to change ${run_id}_sequences.fasta to sequences.fasta because of input requirements
+ 
   """
 }
 
@@ -78,8 +78,7 @@ process ncov_recombinant {
   cp --dereference ${consensus_seqs} ncov-recombinant/data/${run_id}
   cp ${metadata} ncov-recombinant/data/${run_id}/metadata.tsv
   
-  #cp /home/tara.newman/recombinant_pipeline_development/gisaid_strains/gisaid_complete/sequences.fasta ncov-recombinant/data/controls-gisaid
-  #cp /home/tara.newman/recombinant_pipeline_development/gisaid_strains/gisaid_complete/metadata.tsv ncov-recombinant/data/controls-gisaid
+
   # run the pipeline...
   cd ncov-recombinant
   # create the profile
@@ -88,7 +87,6 @@ process ncov_recombinant {
   # run snakemake
   pip install click
   snakemake --profile my_profiles/${run_id}
-  
 
   """
 }
