@@ -85,8 +85,21 @@ process ncov_recombinant {
   scripts/create_profile.sh --data data/${run_id}
   
   # run snakemake
-  pip install click
+  #pip install click
   snakemake --profile my_profiles/${run_id}
+
+
+  # strip the date from the results
+
+  cd results/${run_id}
+  
+  remove_date.py
+  
+  #remove report.xlsx and .ppt
+
+  rm -r report
+  rm -r report_historical
+
 
   """
 }
