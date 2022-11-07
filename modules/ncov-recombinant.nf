@@ -93,7 +93,7 @@ process ncov_recombinant {
 
   cd results/${run_id}
   
-  remove_date.py
+  remove_date.py --version ${params.ncov_recombinant_version}
   
   #remove report.xlsx and .ppt
 
