@@ -34,25 +34,25 @@ def add_date_and_country(df, args):
 
     
     # use the run id to get the run date
-    run_date = str(args.run)
+    #run_date = str(args.run)
     
     #put into iso format
-    iso_run_date = "20" + run_date[0:2] + "-" + run_date[2:4] + "-" + run_date[4:6]
+    #iso_run_date = "20" + run_date[0:2] + "-" + run_date[2:4] + "-" + run_date[4:6]
     
     # create date and country headers required by pipeline
-    dates= [iso_run_date] * len(df)
+    #dates= [iso_run_date] * len(df)
     
     country = ["Canada"] * len(df)
 
     # if sample date is available, use as the date
     # otherwise the run date  is used as the date
 
-    for i in range(0, len(dates)):
-        if pd.isna(df["sample_date"][i])  != True:
-            dates[i] = df["sample_date"][i]
+    #for i in range(0, len(dates)):
+     #   if pd.isna(df["sample_date"][i])  != True:
+      #      dates[i] = df["sample_date"][i]
 	
     # add columns to required location (must be "strain date country")
-    df.insert(1, "date", dates)
+    #df.insert(1, "date", dates)
     df.insert(2, "country", country)
 
     return df
@@ -70,7 +70,7 @@ def fix_metadata(sample_ID, df):
     
     # add columns to dataframe
     df2.insert(1, "ct", ct_value)
-    df2.insert(2, "sample_date", sample_date)
+    df2.insert(2, "date", sample_date)
 
     # fill in "nan" values with "NA" string 
     # (without this the metadata_out.tsv doesn't print NA, just a blank number)
@@ -89,7 +89,7 @@ def fix_metadata(sample_ID, df):
             
             # replace the NA value with the dictionary value
             df2["ct"][row] = dictionary[df["strain"][row]][0]
-            df2["sample_date"][row] = dictionary[df["strain"][row]][1]
+            df2["date"][row] = dictionary[df["strain"][row]][1]
     
 
     
@@ -105,14 +105,21 @@ def main(args):
 
     # rename sample to strain to match pipeline requirements
     # save date as sample data
-    df.rename(columns = {"sample": "strain", "date": "sample_date"}, inplace =True)
+    df.rename(columns = {"sample": "strain"}, inplace =True)
 
+   
     # if there are differences in the number of samples from the metadata file and the sequence files, 
     # use the sample_ID as the strain and fill in sample_date and ct from metadata if available    
     if len(sample_ID) != len(df):
         df = fix_metadata(sample_ID, df)
 
-    # add date and country headers required by pipeline
+
+    # reorder date frame
+
+    df = df[['strain', 'date', 'ct']]
+
+
+    # add country headers required by pipeline
     df = add_date_and_country(df, args)
 
     # save metadata to use in pipeline

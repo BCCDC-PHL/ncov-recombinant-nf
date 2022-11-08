@@ -89,17 +89,15 @@ process ncov_recombinant {
   snakemake --profile my_profiles/${run_id}
 
 
-  # strip the date from the results
+  #add pipeline version to results
 
   cd results/${run_id}
   
-  remove_date.py --version ${params.ncov_recombinant_version}
+  add_pipeline_version.py --version ${params.ncov_recombinant_version}
   
-  #remove report.xlsx and .ppt
-
-  rm -r report
-  rm -r report_historical
-
+  
+ 
+ 
 
   """
 }
