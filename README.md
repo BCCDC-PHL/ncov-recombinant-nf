@@ -10,11 +10,17 @@ The ncov2019-artic-nf output directory and the corresponding metadata.tsv file a
 nextflow run BCCDC-PHL/ncov-recombinant-nf  --cache ~/.conda/envs --artic_analysis_dir  --run_name --metadata --outdir
 ```
 
-or  
+Example script to run the pipeline with run as input:
 
 ```
-./script_to_run_pipeline.sh
-```
-Enter the run name when prompted.
+#!/bin/bash
 
-(Ensure the directories are set up according to your data before running the script.)
+
+echo Please enter the run name:
+read RUN
+
+
+
+nextflow run main.nf -profile conda --cache ~/.conda/envs --artic_analysis_dir test_input/analysis_by_run/$RUN/ncov2019-artic-nf-v1.3-output  --run_name $RUN --metadata test_input/analysis_by_run/$RUN/metadata.tsv --outdir test_output
+```
+Enter the run name when prompted and ensure the directories are set up according to your data before running the script.)
