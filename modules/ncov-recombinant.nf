@@ -85,7 +85,6 @@ process ncov_recombinant {
   scripts/create_profile.sh --data data/${run_id}
   
   # run snakemake
-  #pip install click
   snakemake --profile my_profiles/${run_id}
 
 
