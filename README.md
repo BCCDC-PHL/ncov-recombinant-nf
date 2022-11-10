@@ -6,7 +6,7 @@ Nextflow wrapper for [ktmeaton/ncov-recombinant](https://github.com/ktmeaton/nco
 
 ## Usage
 
-This nextflow wrapper for the ncov-recombinant pipeline is designed to take in the run name, the ncov2019-artic-nf output directory of consensus sequence files for that run and the corresponding metadata.tsv file as input.
+This pipeline is designed to take in the run name, the ncov2019-artic-nf output directory of consensus sequence files for that run and the corresponding metadata.tsv file as input.
 
 ```
 nextflow run BCCDC-PHL/ncov-recombinant-nf \
