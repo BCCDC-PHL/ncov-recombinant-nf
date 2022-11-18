@@ -110,8 +110,11 @@ def main(args):
    
     # if there are differences in the number of samples from the metadata file and the sequence files, 
     # use the sample_ID as the strain and fill in sample_date and ct from metadata if available    
-    if len(sample_ID) != len(df):
-        df = fix_metadata(sample_ID, df)
+
+    
+    df = fix_metadata(sample_ID, df)
+
+
 
 
     # reorder date frame
