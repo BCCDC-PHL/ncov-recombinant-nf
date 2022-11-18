@@ -2,19 +2,21 @@
 
 Nextflow wrapper for [ktmeaton/ncov-recombinant](https://github.com/ktmeaton/ncov-recombinant)
 
-The ncov2019-artic-nf output directory and the corresponding metadata.tsv file are required as input.
+
 
 ## Usage
 
-```
-nextflow run BCCDC-PHL/ncov-recombinant-nf  --cache ~/.conda/envs --artic_analysis_dir  --run_name --metadata --outdir
-```
-
-or  
+This pipeline is designed to take in the run name, the ncov2019-artic-nf output directory of consensus sequence files for that run and the corresponding metadata.tsv file as input.
 
 ```
-./script_to_run_pipeline.sh
-```
-Enter the run name when prompted.
+nextflow run BCCDC-PHL/ncov-recombinant-nf \
+  -profile conda \
+  --cache ~/.conda/envs \
+  --artic_analysis_dir  </path/to/artic-outputs> \
+  --run_name <run_name> \
+  --metadata </path/to/metadata.tsv> \
+  --outdir </path/to/outdir>
 
-(Ensure the directories are set up according to your data before running the script.)
+```
+
+
