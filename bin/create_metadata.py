@@ -30,27 +30,13 @@ def read_sequences(args):
 
 
 
-def add_date_and_country(df, args):
+def add_country(df, args):
 
-    
-    # use the run id to get the run date
-    #run_date = str(args.run)
-    
-    #put into iso format
-    #iso_run_date = "20" + run_date[0:2] + "-" + run_date[2:4] + "-" + run_date[4:6]
-    
-    # create date and country headers required by pipeline
-    #dates= [iso_run_date] * len(df)
-    
+   
+    # create country header required by pipeline
+ 
     country = ["Canada"] * len(df)
 
-    # if sample date is available, use as the date
-    # otherwise the run date  is used as the date
-
-    #for i in range(0, len(dates)):
-     #   if pd.isna(df["sample_date"][i])  != True:
-      #      dates[i] = df["sample_date"][i]
-	
     # add columns to required location (must be "strain date country")
     #df.insert(1, "date", dates)
     df.insert(2, "country", country)
@@ -95,35 +81,54 @@ def fix_metadata(sample_ID, df):
     
     return df2
 
+
+
+def create_metadata(sample_ID):
+
+    # create new dataframe using sample IDs from multi fasta as strain
+    df = pd.DataFrame(sample_ID, columns = ["strain"])
+
+    # create column for sample_date with NA place holder
+    sample_date = ["NA"] * len(df)
+   
+    # add column to dataframe
+    df.insert(1, "date", sample_date)
+
+    return df
+
+
 def main(args):
 
     # get the list of sample IDs from multi fasta file
     sample_ID = read_sequences(args)
 
-    # import metadata
-    df = pd.read_csv(args.input, sep='\t')
+    # check if metadata.tsv file exists
+    if args.input == "NO_FILE":
+        
+        # create a metadata file if no file given
+        df = create_metadata(sample_ID)
 
-    # rename sample to strain to match pipeline requirements
-    # save date as sample data
-    df.rename(columns = {"sample": "strain"}, inplace =True)
+    else:
+    # otherswise import metadata
+        df = pd.read_csv(args.input, sep='\t')
+
+        # rename sample to strain to match pipeline requirements
+        # save date as sample data
+        df.rename(columns = {"sample": "strain"}, inplace =True)
 
    
-    # if there are differences in the number of samples from the metadata file and the sequence files, 
-    # use the sample_ID as the strain and fill in sample_date and ct from metadata if available    
+       
+        # use the sample_ID from the sequences.fasta as the strain to ensure the names match 
+        # and fill in sample_date and ct from metadata if available    
+        df = fix_metadata(sample_ID, df)
 
-    
-    df = fix_metadata(sample_ID, df)
+        # reorder date frame
 
-
-
-
-    # reorder date frame
-
-    df = df[['strain', 'date', 'ct']]
+        df = df[['strain', 'date', 'ct']]
 
 
     # add country headers required by pipeline
-    df = add_date_and_country(df, args)
+    df = add_country(df, args)
 
     # save metadata to use in pipeline
     df.to_csv(args.output, sep="\t", index = False)
