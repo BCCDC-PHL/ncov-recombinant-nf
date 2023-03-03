@@ -85,7 +85,7 @@ process ncov_recombinant {
   scripts/create_profile.sh --data data/${run_id}
   
   # run snakemake
-  snakemake --profile my_profiles/${run_id}
+  snakemake --profile my_profiles/${run_id} --cores ${task.cpus}
 
 
   #add pipeline version to results
