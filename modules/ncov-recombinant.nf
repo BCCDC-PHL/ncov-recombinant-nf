@@ -93,10 +93,6 @@ process ncov_recombinant {
   cd results/${run_id}
   
   add_pipeline_version.py --version ${params.ncov_recombinant_version}
-  
-  
- 
- 
 
   """
 }
