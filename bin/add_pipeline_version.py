@@ -44,7 +44,7 @@ def main(args):
 	linelist_subset = linelist[['strain', 'recombinant_status','recombinant_lineage','recombinant_parents_clade','ncov_recombinant_version']]
 
 	
-	linelist_subset.to_csv("linelist_qc_summary_subset.tsv")
+	linelist_subset.to_csv("linelist/linelist_qc_summary_subset.csv")
 
 
 
