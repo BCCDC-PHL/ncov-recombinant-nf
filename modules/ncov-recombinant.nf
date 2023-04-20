@@ -78,9 +78,12 @@ process ncov_recombinant {
   cp --dereference ${consensus_seqs} ncov-recombinant/data/${run_id}
   cp ${metadata} ncov-recombinant/data/${run_id}/metadata.tsv
   
-
   # run the pipeline...
   cd ncov-recombinant
+
+  # set sc2rf lapis in parameters
+  sed -i 's/lapis: true/lapis: ${params.lapis}/g' defaults/parameters.yaml
+  
   # create the profile
   scripts/create_profile.sh --data data/${run_id}
   
