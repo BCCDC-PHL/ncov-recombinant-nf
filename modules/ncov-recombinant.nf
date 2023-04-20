@@ -81,8 +81,8 @@ process ncov_recombinant {
   # run the pipeline...
   cd ncov-recombinant
 
-  # disable sc2rf lapis in parameters
-  sed -i 's/lapis: true/lapis: false/g' defaults/parameters.yaml
+  # set sc2rf lapis in parameters
+  sed -i 's/lapis: true/lapis: ${params.lapis}/g' defaults/parameters.yaml
   
   # create the profile
   scripts/create_profile.sh --data data/${run_id}
