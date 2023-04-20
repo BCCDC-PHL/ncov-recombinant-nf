@@ -80,12 +80,13 @@ process ncov_recombinant {
   
   # run the pipeline...
   cd ncov-recombinant
+
+  # disable sc2rf lapis in parameters
+  sed -i 's/lapis: true/lapis: false/g' defaults/parameters.yaml
+  
   # create the profile
   scripts/create_profile.sh --data data/${run_id}
   
-  #disable sc2rf lapis api in snakemake build.yaml
-  echo -e "    scr2f_recombinants:\n        lapis: false" >> ncov-recombinant/my_profiles/${run_id}/builds.yaml
-
   # run snakemake
   snakemake --profile my_profiles/${run_id} --cores ${task.cpus}
 
