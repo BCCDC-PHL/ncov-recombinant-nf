@@ -78,14 +78,14 @@ process ncov_recombinant {
   cp --dereference ${consensus_seqs} ncov-recombinant/data/${run_id}
   cp ${metadata} ncov-recombinant/data/${run_id}/metadata.tsv
   
-  #disable sc2rf lapis api in snakemake build.yaml
-  echo -e "    scr2f_recombinants:\n        lapis: false" >> ncov-recombinant/my_profiles/${run_id}/builds.yaml
-
   # run the pipeline...
   cd ncov-recombinant
   # create the profile
   scripts/create_profile.sh --data data/${run_id}
   
+  #disable sc2rf lapis api in snakemake build.yaml
+  echo -e "    scr2f_recombinants:\n        lapis: false" >> ncov-recombinant/my_profiles/${run_id}/builds.yaml
+
   # run snakemake
   snakemake --profile my_profiles/${run_id} --cores ${task.cpus}
 
